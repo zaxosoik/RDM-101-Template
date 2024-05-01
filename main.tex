@@ -1,0 +1,169 @@
+\documentclass[11pt]{scrarticle}
+%Hello There Jeroen
+%Oh hello there Jaap
+
+
+
+
+% \begin{preample} 
+%%%%%%%%%%%%%%%%%% Layout Tweaks for sc#### docs
+%\setkomafont{caption}{\tiny}
+\setkomafont{caption}{\small}
+
+\setkomafont{captionlabel}{\bfseries}
+\setlength {\marginparwidth }{2cm}  % for todonotes warning
+
+
+\renewcommand{\labelitemi}{$\heartsuit$} %the I is the roman number of level
+\renewcommand{\labelitemii}{*}
+
+%%%%%%%%%%%%%%%%%% Packages
+\usepackage{siunitx}
+\usepackage{upgreek}
+\usepackage{graphicx}
+% for 10k comma separator \usepackage[group-separator = {,}]{sinunitx}
+\usepackage[hidelinks]{hyperref}
+
+%\usepackage[intlimits]{amsmath}
+%\usepackage[a3paper, landscape, margin = 2cm]{geometry}
+\usepackage[a3paper, margin = 2cm]{geometry}
+
+\usepackage{amsmath}
+
+\usepackage[obeyFinal]{todonotes}
+\usepackage{subcaption}
+\usepackage{lipsum}
+\usepackage{flafter}
+
+\usepackage{booktabs}
+
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{longtable} %instead of tabular ->longtable for 1+page tables
+
+\usepackage[nameinlink, noabbrev, capitalise]{cleveref}
+\usepackage{pdflscape}
+\usepackage{float} % allos always the placement of floats with H to always Here
+%\usepackage[backend=biber,style=authoryear-icomp ]{biblatex}
+
+\usepackage[maxbibnames=99, style=authoryear, sorting=none]{biblatex}
+\addbibresource{references.bib}
+
+%%%%%%%%%%%%%%%%%% Macros
+\usepackage{my_math}
+\usepackage{macros}
+
+\usepackage{xparse}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, shapes.arrows,shapes.multipart, shapes.callouts,  positioning, calc, shapes.misc, matrix, arrows.meta}
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=orange!30]
+\tikzstyle{arrow} = [thick,->,>=stealth, length = 35mm, scale=2]
+
+
+\tikzstyle{startstop} = [rectangle, rounded corners, 
+minimum width=3cm, 
+minimum height=1cm,
+text centered, 
+draw=black, 
+fill=yellow!30]
+
+
+\tikzstyle{actions} = [single arrow, 
+text centered, 
+draw=black, 
+fill=yellow!20]
+%text width = 3cm]
+
+
+\tikzstyle{descriptions} = [rectangle, 
+text width = 7cm,
+minimum height=1cm,
+text centered, 
+draw=black, 
+fill=cyan!30]
+
+
+
+\tikzstyle{formatsize} = [rectangle, 
+text width = 2cm,
+minimum height=1cm,
+text centered, 
+draw=black, 
+fill=cyan!30]
+
+%text width=3cm
+
+\newcommand\descriptiontype{}
+\def\descriptiontype[#1](#2)(#3)(#4:#5){%
+    %\descriptiontype(right of which node)(Descriptive Name)(Type)(dx,dy)
+    \node (name)[rectangle split, rectangle split parts=2, draw,text width = 5cm, minimum height=5cm, align = center, fill= cyan!80!blue,  #1 ]  at (#4,#5)
+    {\bfseries #2
+     \nodepart{two}
+        \itshape  #3};
+}
+
+
+
+\newcommand\dataobj{} % just for safety
+\def\dataobj[#1](#2)(#3)(#4)(#5)(#6)(#7){%
+    
+  % Synopsis
+  % \dataobj[flag](descriptive name)(Type)(short description)(format)(size)(action)
+    \ifx\relax#7\relax
+    % if #7 is empty, do nothing
+    \else
+    % if #7 is not empty, create the action node
+    \node(action)[actions]{#7};
+    \fi
+    \descriptiontype[right= of action](#2)(#3)(0:0)
+    \node(description)[descriptions, right=2cm of name] { \small\itshape #4};
+    \node(format)[formatsize, right=2cm of description] { \itshape #5};
+    \node(size)[formatsize, right=2cm of format] { \itshape #6};
+    \draw[-{Stealth[length=5mm]}] (name) -- (description);
+    \draw[-{Stealth[length=5mm]}] (description) -- (format);
+    \draw[-{Stealth[length=5mm]}] (format) -- (size);
+    \ifx\relax#1\relax
+    % if #1 is empty, do nothing
+    \else
+    % if #1 is not empty, create the callout node
+    \node[rectangle callout, fill=red!50, draw, callout absolute pointer=(description.north), above=0.5cm of description, overlay]{\bfseries #1};
+    \fi
+    
+    
+
+    \\
+}
+
+
+
+% Layout and metadata
+\title{Poutses ble}
+%\date{1 2 3}
+\date{\today}
+\author{Zacharias-Panagiotis Oikonomou}
+
+%\end{preample}
+%\includeonly{longtable}
+\begin{document}
+\section{Assignment 1 - Storage \& BackUp}
+\subsection{Research Data/Objects}
+\subsubsection{Template}
+\begin{tikzpicture}
+\matrix [row sep=1cm]{
+
+%&\node (start) [startstop] {Start};\\
+%\node(action1)[actions]{bxfghxdfghxdsfghxdfrsh}; &
+
+%\descriptiontype[right=  of action1](sdgfdfghdfghjdfgjd fhgjdhgfjdhhdk ghdkdgfhkdkag)(dsfgsafg)(0:0)\\
+ \dataobj[Flag](descriptive name)(Type)(short description)(format)(size)(action)
+  \dataobj[](descriptive name)(Type)(short description)(format)(size)(action)
+  \dataobj[](descriptive name)(Type)(short description)(format)(size)()
+};
+
+\end{tikzpicture}
+
+\thispagestyle{empty}
+%\setcounter{page}{0}
+\end{document}
